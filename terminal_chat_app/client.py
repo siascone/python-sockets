@@ -1,3 +1,4 @@
+from xmlrpc import client
 from socketio import AsyncClient
 from aioconsole import ainput
 from json import dumps
@@ -22,15 +23,16 @@ class Client:
 
         @sio.event
         async def connect():
-            print('Connected to server')
+            print('Connected to ChatBot')
             await sio.emit('join_chat', {'room': roomName, 'name': clientName})
 
         @sio.event
         async def get_message(message):
-            if clientName == message['from']:
-                print('You: ' + message['message'])
-            else:
-                print(message['from']+' : '+message['message'])
+            if clientName != message['name']:
+                if clientName == message['from']:
+                    print('You: ' + message['message'])
+                else:
+                    print(message['from']+' : '+message['message'])
 
         async def send_message():
             while True:
