@@ -1,5 +1,7 @@
-# # import client1
+from client import Client
 
-# username = input('What is your name? ')
 
-# print(username)
+name = input('What is your name? ')
+
+new_user = Client(name)
+new_user.join()
